@@ -47,17 +47,18 @@ void loop()
 	} else {
 
 		digitalWrite (directionPin, LOW);
-		digitalWrite (phasePin, LOW);	
+		digitalWrite (phasePin, LOW);
+		stopped = false;
 
 		if (movingUp && moveDownPin) {
-			stopped = false;
+			# stopped = false;
 			movingUp = false;
 			movingDown = true;
 			digitalWrite (directionPin, LOW);
 			digitalWrite (phasePin, HIGH);
 		}
 		if (movingDown && moveUpPin) {
-			stopped = false;
+			# stopped = false;
 			movingUp = true;
 			movingDown = false;
 			digitalWrite (directionPin, HIGH);
