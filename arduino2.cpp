@@ -15,6 +15,7 @@ void setup()
 	attachInterrupt(digitalPinToInterrupt(emergencyStopPin), emergencyStopChange, CHANGE);
 
 	pinMode(moveUpPin, INPUT);
+	pinMode(moveDownPin, INPUT);
 	pinMode(directionPin, OUTPUT);
 	pinMode(phasePin, OUTPUT);
 	boolean movingUp = false;
@@ -49,14 +50,14 @@ void loop()
 		digitalWrite (phasePin, LOW);	
 
 		if (movingUp && moveDownPin) {
-			stopped = !stopped;
+			stopped = false;
 			movingUp = false;
 			movingDown = true;
 			digitalWrite (directionPin, LOW);
 			digitalWrite (phasePin, HIGH);
 		}
 		if (movingDown && moveUpPin) {
-			stopped = !stopped;
+			stopped = false;
 			movingUp = true;
 			movingDown = false;
 			digitalWrite (directionPin, HIGH);
