@@ -7,7 +7,7 @@
 #define directionPin 4
 #define phasePin 7
 
-volatile boolean stopped = false;
+volatile boolean isEmergencyButtonPressed = false;
 
 void setup()
 {
@@ -31,7 +31,7 @@ void loop()
 	boolean moveUp = digitalRead(moveUpPin);
 	boolean moveDown = digitalRead(moveDownPin);
 
-	if (!stopped) {
+	if (!isEmergencyButtonPressed) {
 		if (movingUp || moveUp) {
 			movingUp = true;
 			movingDown = false;
@@ -48,17 +48,17 @@ void loop()
 
 		digitalWrite (directionPin, LOW);
 		digitalWrite (phasePin, LOW);
-		stopped = false;
+		isEmergencyButtonPressed = false;
 
 		if (movingUp && moveDownPin) {
-			# stopped = false;
+			# isEmergencyButtonPressed = false;
 			movingUp = false;
 			movingDown = true;
 			digitalWrite (directionPin, LOW);
 			digitalWrite (phasePin, HIGH);
 		}
 		if (movingDown && moveUpPin) {
-			# stopped = false;
+			# isEmergencyButtonPressed = false;
 			movingUp = true;
 			movingDown = false;
 			digitalWrite (directionPin, HIGH);
@@ -78,6 +78,6 @@ void loop()
 }
 
 void emergencyStopChange() {
-	stopped = true;
+	isEmergencyButtonPressed = true;
 	wasAlreadyStop = true;
 }
