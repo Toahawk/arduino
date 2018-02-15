@@ -1,18 +1,19 @@
 #include "Arduino.h"
 
-#define emergencyStopPin 2
+#define stopPins 2
 #define moveUpPin 12
 #define moveDownPin 13
 
 #define directionPin 4
 #define phasePin 7
 
-volatile boolean isEmergencyButtonPressed = false;
+volatile boolean wasAlreadyStop = false;
+volatile boolean isStopButtonPressed = false;
 
 void setup()
 {
-	pinMode(emergencyStopPin, INPUT);
-	attachInterrupt(digitalPinToInterrupt(emergencyStopPin), emergencyStopChange, CHANGE);
+	pinMode(stopPins, INPUT);
+	attachInterrupt(digitalPinToInterrupt(stopPins), stopChange, CHANGE);
 
 	pinMode(moveUpPin, INPUT);
 	pinMode(moveDownPin, INPUT);
@@ -20,7 +21,6 @@ void setup()
 	pinMode(phasePin, OUTPUT);
 	boolean movingUp = false;
 	boolean movingDown = false;
-	boolean wasAlreadyStop = false;
 }
 
 
@@ -31,7 +31,7 @@ void loop()
 	boolean moveUp = digitalRead(moveUpPin);
 	boolean moveDown = digitalRead(moveDownPin);
 
-	if (!isEmergencyButtonPressed) {
+	if (!isStopButtonPressed) {
 		if (movingUp || moveUp) {
 			movingUp = true;
 			movingDown = false;
@@ -48,17 +48,15 @@ void loop()
 
 		digitalWrite (directionPin, LOW);
 		digitalWrite (phasePin, LOW);
-		isEmergencyButtonPressed = false;
+		isStopButtonPressed = false;
 
 		if (movingUp && moveDownPin) {
-			# isEmergencyButtonPressed = false;
 			movingUp = false;
 			movingDown = true;
 			digitalWrite (directionPin, LOW);
 			digitalWrite (phasePin, HIGH);
 		}
 		if (movingDown && moveUpPin) {
-			# isEmergencyButtonPressed = false;
 			movingUp = true;
 			movingDown = false;
 			digitalWrite (directionPin, HIGH);
@@ -77,7 +75,7 @@ void loop()
 	delay(10);
 }
 
-void emergencyStopChange() {
-	isEmergencyButtonPressed = true;
+void stopChange() {
+	isStopButtonPressed = true;
 	wasAlreadyStop = true;
 }
