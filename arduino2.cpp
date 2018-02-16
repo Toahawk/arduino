@@ -41,6 +41,7 @@ void loop()
 			digitalWrite (directionPin, LOW);
 			digitalWrite (phasePin, HIGH);
 		}
+		delay(10);
 	} else {
 		movingDown = false;
 		movingUp = false;
@@ -56,7 +57,6 @@ void loop()
 			digitalWrite (phasePin, LOW);	
 		}
 	}
-	delay(10);
 }
 
 void stopChange() {
