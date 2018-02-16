@@ -74,4 +74,6 @@ void loop()
 void stopChange() {
 	isStopButtonPressedOrEndStop = true;
 	wasAlreadyStop = true;
+	movingDown = false;
+	movingUp = false;
 }
