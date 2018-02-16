@@ -8,7 +8,7 @@
 #define phasePin 7
 
 volatile boolean wasAlreadyStop = false;
-volatile boolean isStopButtonPressed = false;
+volatile boolean isStopButtonPressedOrEndStop = false;
 
 void setup()
 {
@@ -31,7 +31,7 @@ void loop()
 	boolean moveUp = digitalRead(moveUpPin);
 	boolean moveDown = digitalRead(moveDownPin);
 
-	if (!isStopButtonPressed) {
+	if (!isStopButtonPressedOrEndStop) {
 		if (movingUp || moveUp) {
 			movingUp = true;
 			movingDown = false;
@@ -48,7 +48,7 @@ void loop()
 
 		digitalWrite (directionPin, LOW);
 		digitalWrite (phasePin, LOW);
-		isStopButtonPressed = false;
+		isStopButtonPressedOrEndStop = false;
 
 		if (movingUp && moveDown) {
 			movingUp = false;
@@ -76,6 +76,6 @@ void loop()
 }
 
 void stopChange() {
-	isStopButtonPressed = true;
+	isStopButtonPressedOrEndStop = true;
 	wasAlreadyStop = true;
 }
