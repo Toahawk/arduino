@@ -41,11 +41,6 @@ void loop()
 			digitalWrite (directionPin, LOW);
 			digitalWrite (phasePin, HIGH);
 		}
-	} else {
-		digitalWrite (directionPin, LOW);
-		digitalWrite (phasePin, LOW);
-		isStopButtonPressedOrEndStop = false;
-
 		if (movingUp && moveDown) {
 			movingUp = false;
 			movingDown = true;
@@ -58,6 +53,10 @@ void loop()
 			digitalWrite (directionPin, HIGH);
 			digitalWrite (phasePin, HIGH);
 		}		
+	} else {
+		digitalWrite (directionPin, LOW);
+		digitalWrite (phasePin, LOW);
+		isStopButtonPressedOrEndStop = false;
 	}
 	
 	if (wasAlreadyStop && moveUp) {
