@@ -29,30 +29,18 @@ void loop()
 	boolean moveDown = digitalRead(moveDownPin);
 
 	if (!isStopButtonPressedOrEndStop) {
-		if (movingUp || moveUp) {
+		if ((movingUp || moveUp) || (movingDown && moveUp)) {
 			movingUp = true;
 			movingDown = false;
 			digitalWrite (directionPin, HIGH);
 			digitalWrite (phasePin, HIGH);
 		}
-		if (movingDown || moveDown) {
+		if ((movingDown || moveDown) || (movingUp && moveDown)) {
 			movingUp = false;
 			movingDown = true;
 			digitalWrite (directionPin, LOW);
 			digitalWrite (phasePin, HIGH);
 		}
-		if (movingUp && moveDown) {
-			movingUp = false;
-			movingDown = true;
-			digitalWrite (directionPin, LOW);
-			digitalWrite (phasePin, HIGH);
-		}
-		if (movingDown && moveUp) {
-			movingUp = true;
-			movingDown = false;
-			digitalWrite (directionPin, HIGH);
-			digitalWrite (phasePin, HIGH);
-		}		
 	} else {
 		movingDown = false;
 		movingUp = false;
