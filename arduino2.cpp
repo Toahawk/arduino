@@ -9,6 +9,8 @@
 
 volatile boolean wasAlreadyStop = false;
 volatile boolean isStopButtonPressedOrEndStop = false;
+volatile boolean movingUp = false;
+volatile boolean movingDown = false;
 
 void setup()
 {
@@ -19,8 +21,6 @@ void setup()
 	pinMode(moveDownPin, INPUT);
 	pinMode(directionPin, OUTPUT);
 	pinMode(phasePin, OUTPUT);
-	boolean movingUp = false;
-	boolean movingDown = false;
 }
 
 void loop()
