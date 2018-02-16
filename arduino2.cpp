@@ -23,9 +23,6 @@ void setup()
 	boolean movingDown = false;
 }
 
-
-
-
 void loop()
 {
 	boolean moveUp = digitalRead(moveUpPin);
@@ -45,7 +42,6 @@ void loop()
 			digitalWrite (phasePin, HIGH);
 		}
 	} else {
-
 		digitalWrite (directionPin, LOW);
 		digitalWrite (phasePin, LOW);
 		isStopButtonPressedOrEndStop = false;
