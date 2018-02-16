@@ -29,13 +29,13 @@ void loop()
 	boolean moveDown = digitalRead(moveDownPin);
 
 	if (!isStopButtonPressedOrEndStop) {
-		if ((movingUp || moveUp) || (movingDown && moveUp)) {
+		if (movingUp || moveUp) {
 			movingUp = true;
 			movingDown = false;
 			digitalWrite (directionPin, HIGH);
 			digitalWrite (phasePin, HIGH);
 		}
-		if ((movingDown || moveDown) || (movingUp && moveDown)) {
+		if (movingDown || moveDown) {
 			movingUp = false;
 			movingDown = true;
 			digitalWrite (directionPin, LOW);
@@ -47,17 +47,15 @@ void loop()
 		digitalWrite (directionPin, LOW);
 		digitalWrite (phasePin, LOW);
 		isStopButtonPressedOrEndStop = false;
-		wasAlreadyStop = true;
+
+		if (moveUp) {
+			digitalWrite (directionPin, HIGH);
+			digitalWrite (phasePin, HIGH);
+			delay (5);
+			digitalWrite (directionPin, LOW);
+			digitalWrite (phasePin, LOW);	
+		}
 	}
-	
-	if (wasAlreadyStop && moveUp) {
-		digitalWrite (directionPin, HIGH);
-		digitalWrite (phasePin, HIGH);
-		delay (5);
-		digitalWrite (directionPin, LOW);
-		digitalWrite (phasePin, LOW);	
-		wasAlreadyStop = false;
-	}	
 	delay(10);
 }
 
