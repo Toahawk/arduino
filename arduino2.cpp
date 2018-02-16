@@ -50,13 +50,13 @@ void loop()
 		digitalWrite (phasePin, LOW);
 		isStopButtonPressed = false;
 
-		if (movingUp && moveDownPin) {
+		if (movingUp && moveDown) {
 			movingUp = false;
 			movingDown = true;
 			digitalWrite (directionPin, LOW);
 			digitalWrite (phasePin, HIGH);
 		}
-		if (movingDown && moveUpPin) {
+		if (movingDown && moveUp) {
 			movingUp = true;
 			movingDown = false;
 			digitalWrite (directionPin, HIGH);
@@ -64,7 +64,7 @@ void loop()
 		}		
 	}
 	
-	if (wasAlreadyStop && digitalRead(moveUpPin)) {
+	if (wasAlreadyStop && moveUp) {
 		digitalWrite (directionPin, HIGH);
 		digitalWrite (phasePin, HIGH);
 		delay (5);
